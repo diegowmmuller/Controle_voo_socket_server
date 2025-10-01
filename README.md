@@ -20,12 +20,12 @@ O projeto possui as seguintes funcionalidades:
 src/  
 ├── br.study  
 │ ├── Main.java  
-│ ├── Servidor.java  
 ├── br.study.model  
 │ ├── ControladorVoo.java  
 │ ├── Voo.java  
 │ ├── Assento.java  
-
+├── br.study.server  
+│ ├── Servidor.java
 ---
 **Métodos principais:**
 

@@ -8,6 +8,7 @@
         public static void main(String[] args) {
 
             ServidorSocket s = new ServidorSocket(3000);
+            s.rodarServidor();
 
 
         }

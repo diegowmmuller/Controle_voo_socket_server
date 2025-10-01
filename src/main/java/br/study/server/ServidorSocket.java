@@ -14,7 +14,6 @@ public class ServidorSocket {
 
     public ServidorSocket(int porta){
         this.porta = porta;
-        rodarServidor();
     }
 
     public int calcularCodigoStatus(String query){
@@ -47,6 +46,8 @@ public class ServidorSocket {
 
             while (true) {
                 Socket client = server.accept();
+                System.out.println("Cliente aceito: " + client.getInetAddress().getHostAddress());
+                System.out.println(" ");
 
                 new Thread(() -> {
                     try {
