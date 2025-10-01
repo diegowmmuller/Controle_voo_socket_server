@@ -33,11 +33,11 @@ public class ControladorVoo {
             return 3;
         }
 
-        if(vooBuscado.findAssento(numeroAssento) == null){
+        if(vooBuscado.buscarAssento(numeroAssento) == null){
             return 2;
         }
 
-        if(!vooBuscado.findAssento(numeroAssento).getDisponivel()){
+        if(!vooBuscado.buscarAssento(numeroAssento).getDisponivel()){
             return 1;
         }
 
@@ -50,7 +50,7 @@ public class ControladorVoo {
         if(disponibilidade == 0){
             int intCodigoVoo = separarCodigoVoo(codigoVoo);
             Voo voo =voos.get(intCodigoVoo);
-            voo.findAssento(numeroAssento).setDisponivel(false);
+            voo.buscarAssento(numeroAssento).setDisponivel(false);
             return 4;
         }
 

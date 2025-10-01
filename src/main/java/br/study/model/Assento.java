@@ -24,9 +24,9 @@ public class Assento {
 
     @Override
     public String toString() {
-        return "Assento{" +
-                "numero=" + numero +
-                ", disponivel=" + disponivel +
-                '}';
+        return "Assento: " +
+                "numero = " + numero +
+                ", disponivel = " + disponivel +
+                '.';
     }
 }
