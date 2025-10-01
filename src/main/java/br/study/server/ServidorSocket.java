@@ -20,8 +20,11 @@ public class ServidorSocket {
         String[] queryDividida = dividirQuery(query);
 
         String protocolo = queryDividida[0];
-        String vooDesejado = queryDividida[1]; // ex: "A1"
+        System.out.println(protocolo);
+        String vooDesejado = queryDividida[1];
+        System.out.println(vooDesejado);
         String assento = queryDividida[2];
+        System.out.println(assento);
 
         int resposta = -1;
         int assentoInt = Integer.parseInt(assento);
@@ -39,33 +42,35 @@ public class ServidorSocket {
     }
 
     public void rodarServidor() {
-
         try (ServerSocket server = new ServerSocket(porta)) {
             System.out.println("Servidor iniciado na porta " + porta);
-            System.out.println(" ");
+            System.out.println();
 
             while (true) {
                 Socket client = server.accept();
                 System.out.println("Cliente aceito: " + client.getInetAddress().getHostAddress());
-                System.out.println(" ");
+                System.out.println();
 
+                // Cria uma thread para cada cliente
                 new Thread(() -> {
-                    try {
-                        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                        PrintWriter printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(client.getOutputStream())), true);
+                    try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                         PrintWriter printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(client.getOutputStream())), true)) {
 
-                        String query = bufferedReader.readLine();
-                        System.out.println(query);
-                        System.out.println(" ");
-                        int response = calcularCodigoStatus(query);
+                        String query;
+                        while ((query = bufferedReader.readLine()) != null) { // Loop para múltiplas mensagens
+                            System.out.println("Recebido: " + query);
+                            int response = calcularCodigoStatus(query);
+                            printWriter.println("Codigo da resposta: " + response);
+                        }
 
-                        printWriter.println("0: voo disponível\n1: assento indisponível\n2: assento inexistente\n3: voo inexistente\n4: marcação realizada\n");
-                        printWriter.println("Codigo da resposta: " + response);
-
-                        client.close();
+                        System.out.println("Cliente desconectou: " + client.getInetAddress().getHostAddress());
 
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } finally {
+                        try {
+                            client.close();
+                        } catch (IOException ignored) {}
                     }
                 }).start();
             }

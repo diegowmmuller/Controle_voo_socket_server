@@ -10,7 +10,7 @@ public class ControladorVoo {
     private final ArrayList<Voo> voos;
 
     public ControladorVoo() {
-        voos = new ArrayList<>();
+        this.voos = new ArrayList<>();
         preencherVoos(voos);
     }
 

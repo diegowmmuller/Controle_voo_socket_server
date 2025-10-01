@@ -11,7 +11,7 @@ public class Voo {
 
     public Voo(String codigoVoo) {
         this.codigoVoo = codigoVoo;
-        assentos = new ArrayList<>();
+        this.assentos = new ArrayList<>();
         preencherAssentos(assentos);
     }
 
